@@ -4,3 +4,5 @@
 ## v1.2
 * Added Dark theme and Media option.
 * Added Files/Folders sorting.
+## v1.3
+* Added URL Encoding for "+", "&", "#".

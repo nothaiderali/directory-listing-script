@@ -20,4 +20,22 @@ For `index.php`
 <td>allways start with /</td>
 </tr>
 
+<tr>
+<td>media</td>
+<td>0</td>
+<td>0 or 1</td>
+<td>0: no media
+<br>1: show media</td>
+</tr>
+
+<tr>
+<td>dark</td>
+<td>1</td>
+<td>0 or 1</td>
+<td>0: light theme
+<br>1: dark theme</td>
+</tr>
+
 </table>
+
+**For example:** site/index.php?`dark=1` & `media=1` & `path=/folder`

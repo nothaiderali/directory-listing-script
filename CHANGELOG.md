@@ -6,3 +6,5 @@
 * Added Files/Folders sorting.
 ## v1.3
 * Added URL Encoding for "+", "&", "#".
+## v1.4
+* Added File Size listing.

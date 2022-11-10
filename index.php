@@ -1,4 +1,4 @@
-<!--Directory-Listing-Script-v1.0-->
+<!--Directory-Listing-Script-v1.1-->
 <html>
 <head>
 <meta charset="utf-8" content="width=device-width" name="viewport">
@@ -6,45 +6,72 @@
 html{
   -webkit-text-size-adjust: 100%;
 }
-form{
-  margin-top: 3px;
-  margin-bottom: 3px;
+a.folders:link {
+  color: blue;
+}
+a.folders:visited {
+  color: blue;
+  //color: darkblue;
+}
+a.files:link {
+  color: orangered;
+}
+a.files:visited {
+  color: orangered;
+  //color: #8c2600;
 }
 </style>
 </head>
 <body>
 <?php
-$dir = ".";
+error_reporting(0);
+
+$maindir = ".";
+$maindirl = strlen($maindir);
+$dir = $maindir;
 $files = "";
 
-if ($_POST){
-$dir = $_POST["path"]."/".$_POST["folder"];
+if ($_GET and array_key_exists("path", $_GET)){
+$dir = $maindir.$_GET["path"];
 }
 
-echo '<b>Index of '.substr($dir, 0).'</b><br>';
-
 if ($opendirectory = opendir($dir)){
+
+echo "<b>Index of ".substr($dir, $maindirl)."</b><br>
+";
+
+if ($dir !== $maindir){
+
+$pdir = substr($dir, 0,  strrpos($dir, '/'));
+
+$pdir = substr($pdir, $maindirl);
+
+echo "<a class='folders' href='?path=".$pdir."'>Parent Directory</a><br>
+";
+}
 
 while (($list = readdir($opendirectory)) !== false){
 
 if ($list !== "." and $list !== ".."){
 
-if (is_dir($dir.'/'.$list)){
+if (is_dir($dir."/".$list)){
 
-echo "<form method='post'>
-<input type='hidden' name='path' value='$dir'/>
-<input type='submit' name='folder' value='$list'/>
-</form>";
+echo "<a class='folders' href='?path=".substr($dir, $maindirl)."/".$list."'>".$list."</a><br>
+";
 
 }
 else{
 
-$files = $files."<a href='".$dir.'/'.$list."'>".$list."</a><br>";
+$files = $files."<a class='files' href='".$dir."/".$list."'>".$list."</a><br>
+";
 
 }
 }
 }
 echo $files;
+}
+else{
+die("<b>Directory does not exist.<b>");
 }
 ?>
 <!--

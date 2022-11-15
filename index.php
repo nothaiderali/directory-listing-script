@@ -37,8 +37,12 @@ $replace = array("%2B", "%26", "%23");
 return str_replace($search, $replace, $str);
 }
 
-function nbsp($str) {
-return str_replace(" ", "&nbsp;", $str);
+function nb($str) {
+
+$search = array(" ", "-", "–", ")");
+$replace = array("&nbsp;", "&#8209;", "&#8209;", "&rpar;‍");
+
+return str_replace($search, $replace, $str);
 }
 
 function format_size($size) {
@@ -114,19 +118,19 @@ if ($opendirectory = opendir($dir)){
 
 if ($dir !== $maindir){
 
-echo "<b>".nbsp("Index of ".substr($dir, $maindirl))."</b>
+echo "<b>".nb("Index of ".substr($dir, $maindirl))."</b>
 ";
 
 $pdir = substr($dir, 0,  strrpos($dir, "/"));
 
 $pdir = substr($pdir, $maindirl);
 
-echo nbsp("<p>⤶ ").'<a class="folders" href="?dark='.$dark.'&media='.$media.'&path='.ownurlencode($pdir).'">Parent Directory</a></p>
+echo nb("<p>⤶ ").'<a class="folders" href="?dark='.$dark.'&media='.$media.'&path='.ownurlencode($pdir).'">Parent Directory</a></p>
 ';
 }
 
 else {
-echo "<b>".nbsp("Index of /")."</b>
+echo "<b>".nb("Index of /")."</b>
 ";
 }
 
@@ -137,7 +141,7 @@ if ($list !== "." and $list !== ".."){
 
 if (is_dir($dir."/".$list)){
 
-array_push($folders,'<a class="folders" href="?dark='.$dark.'&media='.$media.'&path='.ownurlencode(substr($dir, $maindirl).'/'.$list).'">'.nbsp($list).'</a>');
+array_push($folders,'<a class="folders" href="?dark='.$dark.'&media='.$media.'&path='.ownurlencode(substr($dir, $maindirl).'/'.$list).'">'.nb($list).'</a>');
 
 }
 else{
@@ -171,7 +175,7 @@ Your browser does not support the video tag.
 
 }
 
-array_push($files,'<a class="files" href="'.$link.'">'.nbsp($list.'</a> ~ '.format_size(filesize($link))).$file);
+array_push($files,'<a class="files" href="'.$link.'">'.nb($list.'</a> ~ '.format_size(filesize($link))).$file);
 
 unset($file);
 
@@ -181,13 +185,13 @@ unset($file);
 
 natcasesort($folders);
 foreach ($folders as $folder) {
-echo nbsp("<p>• ").$folder."</p>
+echo nb("<p>• ").$folder."</p>
 ";
 }
 
 natcasesort($files);
 foreach ($files as $file) {
-echo nbsp("<p>• ").$file."</p>
+echo nb("<p>• ").$file."</p>
 ";
 }
 
